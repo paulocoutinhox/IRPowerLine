@@ -4,6 +4,9 @@
 int RECV_PIN = 12;
 int RECV_POWER = 11;
 
+int DELAY_TIME_DEFAULT = 200;
+int DELAY_TIME_ZERO = 0;
+
 int RELE_1 = 2;
 int RELE_2 = 3;
 int RELE_3 = 4;
@@ -52,7 +55,7 @@ void setup()
 
   // configure rele ports
   setupAllRelePorts();
-  tunOffAllRelePorts();
+  tunOffAllRelePorts(DELAY_TIME_ZERO);
 }
 
 void loop()
@@ -64,42 +67,42 @@ void loop()
     if (results.value == BT_RELE_1)
     {
       Serial.println("Rele 1");
-      toggleRele(1);
+      toggleRele(1, DELAY_TIME_DEFAULT);
     }
     else if (results.value == BT_RELE_2)
     {
       Serial.println("Rele 2");
-      toggleRele(2);
+      toggleRele(2, DELAY_TIME_DEFAULT);
     }
     else if (results.value == BT_RELE_3)
     {
       Serial.println("Rele 3");
-      toggleRele(3);
+      toggleRele(3, DELAY_TIME_DEFAULT);
     }
     else if (results.value == BT_RELE_4)
     {
       Serial.println("Rele 4");
-      toggleRele(4);
+      toggleRele(4, DELAY_TIME_DEFAULT);
     }
     else if (results.value == BT_RELE_5)
     {
       Serial.println("Rele 5");
-      toggleRele(5);
+      toggleRele(5, DELAY_TIME_DEFAULT);
     }
     else if (results.value == BT_RELE_6)
     {
       Serial.println("Rele 6");
-      toggleRele(6);
+      toggleRele(6, DELAY_TIME_DEFAULT);
     }
     else if (results.value == BT_RELE_7)
     {
       Serial.println("Rele 7");
-      toggleRele(7);
+      toggleRele(7, DELAY_TIME_DEFAULT);
     }
     else if (results.value == BT_RELE_8)
     {
       Serial.println("Rele 8");
-      toggleRele(8);
+      toggleRele(8, DELAY_TIME_DEFAULT);
     }
     else if (results.value == BT_POWER)
     {
@@ -107,15 +110,15 @@ void loop()
 
       if (RELE_1_ON && RELE_2_ON && RELE_3_ON && RELE_4_ON && RELE_5_ON && RELE_6_ON && RELE_7_ON && RELE_8_ON)
       {
-        tunOffAllRelePorts();
+        tunOffAllRelePorts(DELAY_TIME_DEFAULT);
       }
       else if (!RELE_1_ON && !RELE_2_ON && !RELE_3_ON && !RELE_4_ON && !RELE_5_ON && !RELE_6_ON && !RELE_7_ON && !RELE_8_ON)
       {
-        tunOnAllRelePorts();
+        tunOnAllRelePorts(DELAY_TIME_DEFAULT);
       }
       else
       {
-        tunOffAllRelePorts();
+        tunOffAllRelePorts(DELAY_TIME_DEFAULT);
       }
     }
 
@@ -139,33 +142,33 @@ void setupAllRelePorts()
 }
 
 /* Turn off all rele ports */
-void tunOffAllRelePorts()
+void tunOffAllRelePorts(int delayTime)
 {
-  tunOffRele(1);
-  tunOffRele(2);
-  tunOffRele(3);
-  tunOffRele(4);
-  tunOffRele(5);
-  tunOffRele(6);
-  tunOffRele(7);
-  tunOffRele(8);
+  tunOffRele(1, delayTime);
+  tunOffRele(2, delayTime);
+  tunOffRele(3, delayTime);
+  tunOffRele(4, delayTime);
+  tunOffRele(5, delayTime);
+  tunOffRele(6, delayTime);
+  tunOffRele(7, delayTime);
+  tunOffRele(8, delayTime);
 }
 
 /* Turn on all rele ports */
-void tunOnAllRelePorts()
+void tunOnAllRelePorts(int delayTime)
 {
-  tunOnRele(1);
-  tunOnRele(2);
-  tunOnRele(3);
-  tunOnRele(4);
-  tunOnRele(5);
-  tunOnRele(6);
-  tunOnRele(7);
-  tunOnRele(8);
+  tunOnRele(1, delayTime);
+  tunOnRele(2, delayTime);
+  tunOnRele(3, delayTime);
+  tunOnRele(4, delayTime);
+  tunOnRele(5, delayTime);
+  tunOnRele(6, delayTime);
+  tunOnRele(7, delayTime);
+  tunOnRele(8, delayTime);
 }
 
 /* Turn on one rele port */
-void tunOnRele(int index)
+void tunOnRele(int index, int delayTime)
 {
   switch (index)
   {
@@ -203,11 +206,11 @@ void tunOnRele(int index)
       break;
   }
 
-  delay(500);
+  delay(delayTime);
 }
 
 /* Turn off one rele port */
-void tunOffRele(int index)
+void tunOffRele(int index, int delayTime)
 {
   switch (index)
   {
@@ -245,92 +248,92 @@ void tunOffRele(int index)
       break;
   }
 
-  delay(500);
+  delay(delayTime);
 }
 
 /* Toggle one rele port to on or off */
-void toggleRele(int index)
+void toggleRele(int index, int delayTime)
 {
   switch (index)
   {
     case 1:
       if (RELE_1_ON)
       {
-        tunOffRele(1);
+        tunOffRele(1, delayTime);
       }
       else
       {
-        tunOnRele(1);
+        tunOnRele(1, delayTime);
       }
       break;
     case 2:
       if (RELE_2_ON)
       {
-        tunOffRele(2);
+        tunOffRele(2, delayTime);
       }
       else
       {
-        tunOnRele(2);
+        tunOnRele(2, delayTime);
       }
       break;
     case 3:
       if (RELE_3_ON)
       {
-        tunOffRele(3);
+        tunOffRele(3, delayTime);
       }
       else
       {
-        tunOnRele(3);
+        tunOnRele(3, delayTime);
       }
       break;
     case 4:
       if (RELE_4_ON)
       {
-        tunOffRele(4);
+        tunOffRele(4, delayTime);
       }
       else
       {
-        tunOnRele(4);
+        tunOnRele(4, delayTime);
       }
       break;
     case 5:
       if (RELE_5_ON)
       {
-        tunOffRele(5);
+        tunOffRele(5, delayTime);
       }
       else
       {
-        tunOnRele(5);
+        tunOnRele(5, delayTime);
       }
       break;
     case 6:
       if (RELE_6_ON)
       {
-        tunOffRele(6);
+        tunOffRele(6, delayTime);
       }
       else
       {
-        tunOnRele(6);
+        tunOnRele(6, delayTime);
       }
       break;
     case 7:
       if (RELE_7_ON)
       {
-        tunOffRele(7);
+        tunOffRele(7, delayTime);
       }
       else
       {
-        tunOnRele(7);
+        tunOnRele(7, delayTime);
       }
       break;
     case 8:
       if (RELE_8_ON)
       {
-        tunOffRele(8);
+        tunOffRele(8, delayTime);
       }
       else
       {
-        tunOnRele(8);
+        tunOnRele(8, delayTime);
       }
       break;
   }
